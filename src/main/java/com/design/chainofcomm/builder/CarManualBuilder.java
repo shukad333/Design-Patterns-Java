@@ -1,5 +1,10 @@
 package com.design.chainofcomm.builder;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Stack;
+import java.util.TreeSet;
+
 public class CarManualBuilder implements Builder{
   private CarType type;
   private int seats;
@@ -10,6 +15,8 @@ public class CarManualBuilder implements Builder{
 
   @Override
   public void setCarType(CarType type) {
+    TreeSet<Integer> treeSet = new TreeSet<>(Collections.reverseOrder());
+
     this.type = type;
   }
 

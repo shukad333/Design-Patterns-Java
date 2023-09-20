@@ -16,6 +16,8 @@ public class CyclicBarrierDemo {
         t1.start();
         t2.start();
         t3.start();
+        cyclicBarrier.reset();
+        System.out.println(cyclicBarrier.getParties());
     }
 }
 
@@ -38,7 +40,7 @@ class ReadFile implements Runnable {
     public void run() {
         System.out.println(Thread.currentThread().getName());
 
-        System.out.println(cyclicBarrier.getNumberWaiting()+" waiting");
+        System.out.println(cyclicBarrier.getParties()+" waiting");
         try {
             cyclicBarrier.await();
         } catch (InterruptedException exception) {

@@ -14,4 +14,9 @@ class ThreadLocalTest {
         }
     };
 
+    public static void main(String[] args) {
+        ThreadLocalTest t = new ThreadLocalTest();
+        
+    }
+
 }

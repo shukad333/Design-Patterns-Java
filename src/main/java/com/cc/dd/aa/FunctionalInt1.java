@@ -35,7 +35,22 @@ public class FunctionalInt1 {
 
         System.out.println(function.apply("litchi"));
 
+        Consumer<String> consumer1 = (a)-> System.out.println(a);
+        consumer1.accept("MNASDSD");
 
+
+
+
+        TriFunction<String,String,String,Integer> tf = (a,b,c) -> {return 12;};
+
+        System.out.println(tf.apply("we","xvc","ll"));
 
     }
+}
+
+@FunctionalInterface
+interface TriFunction<A,B,C,D> {
+
+    D apply(A a, B b , C c);
+
 }

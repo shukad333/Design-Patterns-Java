@@ -8,96 +8,97 @@ import java.util.concurrent.Executors;
 
 public class CountDownLatchEx {
 
-    void calc() throws InterruptedException {
+  void calc() throws InterruptedException {
 
-        ExecutorService tp = Executors.newFixedThreadPool(10);
+    ExecutorService tp = Executors.newFixedThreadPool(10);
 
-        CountDownLatch latch = new CountDownLatch(3);
-        List<Service> services = Arrays.asList(new DM(latch),new OM(latch),new PM(latch));
+    CountDownLatch latch = new CountDownLatch(3);
+    List<Service> services = Arrays.asList(new DM(latch), new OM(latch), new PM(latch));
 
-        for(Service service : services) {
+    for (Service service : services) {
 
-            tp.submit(() -> {
+      tp.submit(() -> {
 
-                try {
-                    service.verify();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
+        try {
+          service.verify();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
         }
-
-        latch.await();
-
-        System.out.println(Thread.currentThread().getName());
-
-
-
+      });
     }
 
-    abstract class Service {
+    latch.await();
 
-        CountDownLatch latch;
-        public Service(CountDownLatch latch) {
-            this.latch = latch;
-        }
-        abstract boolean verify() throws InterruptedException;
+    System.out.println(Thread.currentThread().getName());
+
+
+  }
+
+  abstract class Service {
+
+    CountDownLatch latch;
+
+    public Service(CountDownLatch latch) {
+      this.latch = latch;
     }
 
-    class DM extends Service {
+    abstract boolean verify() throws InterruptedException;
+  }
 
-        public DM(CountDownLatch latch) {
-            super(latch);
-        }
+  class DM extends Service {
 
-        @Override
-        public boolean verify() throws InterruptedException {
-            System.out.println(Thread.currentThread().getName());
-            Thread.sleep(3000);
-            System.out.println("Veridied DM");
-            latch.countDown();
-            return true;
-        }
+    public DM(CountDownLatch latch) {
+      super(latch);
     }
 
-    class OM extends Service {
-
-        public OM(CountDownLatch latch) {
-            super(latch);
-        }
-
-
-        @Override
-        public boolean verify() throws InterruptedException {
-            System.out.println(Thread.currentThread().getName());
-            Thread.sleep(9000);
-            System.out.println("Veridied OM");
-            latch.countDown();
-            return true;
-        }
+    @Override
+    public boolean verify() throws InterruptedException {
+      System.out.println(Thread.currentThread().getName());
+      Thread.sleep(3000);
+      System.out.println("Verified DM");
+      latch.countDown();
+      return true;
     }
+  }
 
-    class PM extends Service {
+  class OM extends Service {
 
-        public PM(CountDownLatch latch) {
-            super(latch);
-        }
-
-
-        @Override
-        public boolean verify() throws InterruptedException {
-            System.out.println(Thread.currentThread().getName());
-            Thread.sleep(5000);
-            System.out.println("Veridied PM");
-            latch.countDown();
-            return true;
-        }
+    public OM(CountDownLatch latch) {
+      super(latch);
     }
 
 
-    public static void main(String[] args) throws InterruptedException {
-
-        new CountDownLatchEx().calc();
-
+    @Override
+    public boolean verify() throws InterruptedException {
+      System.out.println(Thread.currentThread().getName());
+      Thread.sleep(9000);
+      System.out.println("Verified OM");
+      latch.countDown();
+      return true;
     }
+  }
+
+  class PM extends Service {
+
+    public PM(CountDownLatch latch) {
+      super(latch);
+    }
+
+
+    @Override
+    public boolean verify() throws InterruptedException {
+      System.out.println(Thread.currentThread().getName());
+      Thread.sleep(5000);
+      System.out.println("Verified PM");
+      latch.countDown();
+      return true;
+    }
+  }
+
+
+  public static void main(String[] args) throws InterruptedException {
+
+    new CountDownLatchEx().calc();
+
+  }
 }
