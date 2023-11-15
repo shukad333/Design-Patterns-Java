@@ -16,7 +16,9 @@ public class CompletableFutEx {
             }
             return "Hello";
         });
+        System.out.println("I am not blocked!");
         System.out.println(completableFuture.isDone());
+        System.out.println(completableFuture.get());
 
     }
 }

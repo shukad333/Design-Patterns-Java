@@ -88,6 +88,7 @@ public class MultiThread2 {
   public static void main(String[] args) {
     ReentrantLock rel = new ReentrantLock();
     ExecutorService pool = Executors.newFixedThreadPool(MAX_T);
+
     Runnable w1 = new worker(rel, "Job1");
     Runnable w2 = new worker(rel, "Job2");
     Runnable w3 = new worker(rel, "Job3");

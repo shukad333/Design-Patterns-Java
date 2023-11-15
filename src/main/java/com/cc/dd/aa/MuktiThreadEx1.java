@@ -2,6 +2,7 @@ package com.cc.dd.aa;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -9,7 +10,7 @@ public class MuktiThreadEx1 extends Thread{
 
   public static void main(String[] args) {
     Lock lock = new ReentrantLock();
-    lock.newCondition();
+    Condition condition = lock.newCondition();
     Executor executor = Executors.newFixedThreadPool(2);
     MyClass myClass = new MyClass();
     MyClass w1 = new MyClass();

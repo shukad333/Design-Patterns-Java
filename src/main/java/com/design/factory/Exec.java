@@ -23,11 +23,10 @@ class ImageFactory {
     static ImageFactory getInstance() {
 
         if(instance==null) {
-            synchronized ((ImageFactory.class)) {
+            synchronized (ImageFactory.class) {
                 if(instance==null) {
                     instance = new ImageFactory();
                 }
-                return instance;
             }
         }
         return instance;

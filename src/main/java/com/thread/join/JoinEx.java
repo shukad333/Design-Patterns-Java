@@ -27,6 +27,7 @@ public class JoinEx {
         one.join();
         two.start();
         two.join();
+        Thread.currentThread().isAlive();
 
 
         System.out.println(Thread.currentThread().getName());
